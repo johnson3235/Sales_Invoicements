@@ -8,11 +8,17 @@ package sales;
 import Model.InvoiceHeader;
 import Model.InvoiceLine;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.IllegalFormatException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static sales.loadFile.frame;
 
 /**
  *
@@ -24,7 +30,7 @@ public class savefile {
 
     public savefile(start frame) {this.frame = frame;}
     
-    public void saveFileMenuBar() {
+    public void saveFileMenuBar() throws Exception {
         String headers = "";
         String lines = "";
         for (InvoiceHeader header : frame.getInvoicesHeaderList()) {
@@ -42,8 +48,13 @@ public class savefile {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File headerFile = fileChooser.getSelectedFile();
+            if(exist(headerFile.toString())){
+                if(accept(headerFile))
+                {   
+                
             try {
                 FileWriter filewriterl = new FileWriter(headerFile);
+                
                 filewriterl.write(headers);
                 filewriterl.flush();
                 filewriterl.close();
@@ -52,13 +63,79 @@ public class savefile {
                 result = fileChooser.showSaveDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File linesFile = fileChooser.getSelectedFile();
+                      if(exist(linesFile.toString())){
+                if(accept(linesFile))
+                {   
                     FileWriter filewriterh = new FileWriter(linesFile);
                     filewriterh.write(lines);
                     filewriterh.flush();
                     filewriterh.close();
                 }
-            } catch (Exception ex) {JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error: ", JOptionPane.ERROR_MESSAGE);}
+                  else
+           {
+               JOptionPane.showMessageDialog(frame, "Error: Wrong File Extension should be .CSV  " , "Error: ", JOptionPane.ERROR_MESSAGE);
+               throw new Exception();
+           }
+           }
+           else
+           {
+                JOptionPane.showMessageDialog(frame, "Error: File Not Found  " , "Error: ", JOptionPane.ERROR_MESSAGE);
+               throw new Exception();
+           }
+                }
+                
+            }
+            catch (FileNotFoundException ex) {
+               JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error: ", JOptionPane.ERROR_MESSAGE);
+            }
+             catch (IllegalFormatException el) {
+                 JOptionPane.showMessageDialog(frame, "Error: Wrong File Format  " , "Error: ", JOptionPane.ERROR_MESSAGE);
+            }
+             catch (Exception ex) {JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error: ", JOptionPane.ERROR_MESSAGE);}
+            }
+                
+            else
+           {
+               JOptionPane.showMessageDialog(frame, "Error: Wrong File Extension should be .CSV  " , "Error: ", JOptionPane.ERROR_MESSAGE);
+               throw new Exception();
+           }
+           }
+           else
+           {
+                JOptionPane.showMessageDialog(frame, "Error: File Not Found  " , "Error: ", JOptionPane.ERROR_MESSAGE);
+               throw new Exception();
+           }
+        
+    }
+    }
+    
+
+    public boolean exist (String filePath)
+    {
+        Path path = Paths.get(filePath);
+        boolean exists = Files.isRegularFile(path);
+        
+        if (exists) {
+          return true;
         }
-        JOptionPane.showMessageDialog(frame, "Data saved successfully", "Saved", JOptionPane.INFORMATION_MESSAGE);
+        else {
+             return false;
+
+        }
+    }
+    
+    public boolean accept (File file)
+    {
+        if(file.getName().endsWith(".csv"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+      
     }
 }
+
