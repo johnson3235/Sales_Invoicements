@@ -33,38 +33,38 @@ public class InvoiceLineJTableModel  extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         InvoiceLine row = invoicesLineList.get(rowIndex);
-        return switch (columnIndex) {
-            case 0 -> row.getItemNumber();
-            case 1 -> row.getItemName();
-            case 2 -> row.getPriceItems();
-            case 3 -> row.getCountItems();
-            case 4 -> row.getLineTotal();
-            default -> "";
-        };
+         switch (columnIndex) {
+            case 0 :  return(row.getItemNumber()); 
+            case 1 : return( row.getItemName()); 
+            case 2 : return(row.getPriceItems()); 
+            case 3 : return(row.getCountItems()); 
+            case 4 : return(row.getLineTotal()); 
+            default : return("");
+        }
     }
 
     @Override
     public String getColumnName(int column) {
-        return switch (column) {
-            case 0 -> "NO.";
-            case 1 -> "Item Name";
-            case 2 -> "Item Price";
-            case 3 -> "Count";
-            case 4 -> "Item Total";
-            default -> "";
-        };
+         switch (column) {
+            case 0 : return( "NO.");
+            case 1 : return("Item Name");
+            case 2  : return("Item Price");
+            case 3  : return("Count");
+            case 4  : return("Item Total");
+            default  : return("");
+        }
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return switch (columnIndex) {
-            case 0 -> Integer.class;
-            case 1 -> String.class;
-            case 2 -> Double.class;
-            case 3 -> Integer.class;
-            case 4 -> Double.class;
-            default -> Object.class;
-        };
+         switch (columnIndex) {
+            case 0 : return(Integer.class);
+            case 1 : return(String.class);
+            case 2 :return( Double.class);
+            case 3 :return( Integer.class);
+            case 4 :return( Double.class);
+            default :return( Object.class);
+        }
     }
 
     @Override

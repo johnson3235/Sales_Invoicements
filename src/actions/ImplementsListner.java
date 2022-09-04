@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import sales.close;
@@ -25,7 +27,7 @@ import sales.start;
  * @author johny
  */
 public class ImplementsListner implements ActionListener, ListSelectionListener {
-       private start frame;
+    private start frame;
     private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // day - month - year
     close menuBarItemsActionListners;
     buttons_action buttonsActionListners;
@@ -45,18 +47,35 @@ public class ImplementsListner implements ActionListener, ListSelectionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "LoadFile" -> loadFileMenuBarActionListner.loadFileMenuBar();
-            case "SaveFile" -> saveFileMenuBarActionListner.saveFileMenuBar();
-            case "CloseFile" -> closeFileMenuBarActionListner.closeFileMenuBar();
-            case "CreateNewInvoiceButton" -> buttonsActionListners.displayNewInvoiceDialog();
-            case "DeleteInvoiceButton" -> buttonsActionListners.deleteInvoiceButton();
-            case "SaveButton" -> buttonsActionListners.displaySaveButtonNewLineDialog();
-            case "CancelButton" -> buttonsActionListners.cancelButton();
-            case "InsertButtonInDialog" -> buttonsActionListners.insertButtonInDialog();
-            case "CancelButtonInDialog" -> buttonsActionListners.cancelButtonInDialog();
-            case "createLineOK" -> buttonsActionListners.okButtonNewLineInDialog();
-            case "createLineCancel" -> buttonsActionListners.cancelButtonNewLineInDialog();
-            default -> throw new AssertionError();
+            case "LoadFile":
+            {
+                try {
+                    loadFileMenuBarActionListner.loadFileMenuBar();
+                    break;
+                } catch (Exception ex) {
+                    Logger.getLogger(ImplementsListner.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case "SaveFile" : {
+                try {
+                    saveFileMenuBarActionListner.saveFileMenuBar();
+                     break;
+                } catch (Exception ex) {
+                    Logger.getLogger(ImplementsListner.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case "CloseFile" : closeFileMenuBarActionListner.closeFileMenuBar(); break;
+            case "CreateNewInvoiceButton" : buttonsActionListners.displayNewInvoiceDialog(); break;
+            case "DeleteInvoiceButton" : buttonsActionListners.deleteInvoiceButton(); break;
+            case "SaveButton" : buttonsActionListners.displaySaveButtonNewLineDialog(); break;
+            case "CancelButton" : buttonsActionListners.cancelButton(); break;
+            case "InsertButtonInDialog" : buttonsActionListners.insertButtonInDialog(); break;
+            case "CancelButtonInDialog": buttonsActionListners.cancelButtonInDialog(); break;
+            case "createLineOK" : buttonsActionListners.okButtonNewLineInDialog(); break;
+            case "createLineCancel" : buttonsActionListners.cancelButtonNewLineInDialog(); break;
+            default : throw new AssertionError();
         }
     }
 

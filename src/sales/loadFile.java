@@ -31,7 +31,6 @@ import java.util.IllegalFormatException;
  * @author johny
  */
 public class loadFile {
-    
     static  start frame;
     private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // day - month - year
 
@@ -39,7 +38,6 @@ public class loadFile {
 
     public void loadFileMenuBar () throws Exception {
 
-        // choose the first file "header file"
         JOptionPane.showMessageDialog(frame, "Please, select header file!", "Choose Header File", JOptionPane.INFORMATION_MESSAGE);
         JFileChooser openFileChooser = new JFileChooser();
         int result = openFileChooser.showOpenDialog(frame);
@@ -94,8 +92,6 @@ public class loadFile {
 }
           
      
-
-                // choose the second file "line file"
                 JOptionPane.showMessageDialog(frame, "Please, select line file!", "Choose Line File", JOptionPane.INFORMATION_MESSAGE);
                 result = openFileChooser.showOpenDialog(frame);
 
@@ -187,7 +183,4 @@ public class loadFile {
         
       
     }
-    
-    
- 
 }
